@@ -264,14 +264,14 @@
         <div class="col-lg-6 h-100 block-28__content-side">
           <div class="contact-info">
             <h5 class="contact-info__title mb-3">Get in Touch</h5>
-            <p class="contact-info__paragraph mb-5">
+            <p class="contact-info__paragraph mb-3">
              Please feel free to get in touch with us. Please call us or mail us about Customer support, Franchise etc.
             </p>
            
             <div class="mb-5">
-              <h6 class="contact-info__title-2 mb-3">COLLABORATE</h6>
               <p class="d-flex flex-column">
                 <span class="contact-info__item mb-2">
+                  BYTES DELIVERY LLP,<br>Ponnani<br><br>
                   <i class="fas fa-phone"></i><span class="mx-2">+91 7034524312</span>
                 </span>
                 <span class="contact-info__item">
@@ -282,7 +282,7 @@
           </div>
         </div>
         <div class="col-lg-6 h-100 block-28__form-side">
-          <form onsubmit="submitContactForm(event)" class="contact-form text-center">
+          <form id="submit-form" class="contact-form text-center">
             <div class="contact-form__header mb-5">
               <h6 class="contact-form__title mb-3">Contact Us</h6>
               <p class="contact-form__paragraph mb-0 mx-auto">
@@ -293,7 +293,7 @@
             <input type="email" class="contact-form__input" placeholder="Email">
             <input type="phone" class="contact-form__input" placeholder="Contact Number">
             <textarea class="contact-form__input" placeholder="Message"></textarea>
-            <button class="btn btn-primary w-100">SEND MESSAGE</button>
+            <button id="sent-msg" class="btn btn-primary w-100">SEND MESSAGE</button>
           </form>
         </div>
       </div>
@@ -315,14 +315,15 @@
             <li class="mx-2">
               <a href="/pages/terms_and_conditions.html"><p class="block-44__copyrights" style="margin-top: 10px">Terms & Conditions</p>
             </li>
+          
             </ul>
 
             <ul class="block-44__extra-links d-flex list-unstyled p-0">
               <li class="mx-2">
-                <a href="/pages/refund_policy.html"><p class="block-44__copyrights" style="margin-top: 10px">Refund & Cancellation Policy</p>
+                <a href="/pages/refund_policy.html"><p class="block-44__copyrights">Refund & Cancellation Policy</p>
               </li>
               <li class="mx-2">
-                <a href="/pages/delivery_policy.html"><p class="block-44__copyrights" style="margin-top: 10px">Delivery Policy</p>
+                <a href="/pages/delivery_policy.html"><p class="block-44__copyrights">Delivery Policy</p>
               </li>
               </ul>
         </div>
@@ -366,6 +367,33 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+
+    <script>
+      $("#submit-form").submit((e)=>{
+          e.preventDefault()
+          $("#sent-msg").val("Sending Message")
+          $("#sent-msg").attr("disabled", true)
+          $.ajax({
+              url:"https://script.google.com/macros/s/AKfycbyJ1kqcuqpIGMJ0TuP_3KRQ8cllUXeM452ou90hNKLWnpMpn1osENZGRz-egMPureIC/exec",
+              data:$("#submit-form").serialize(),
+              method:"post",
+              success:function (response){
+                $("#sent-msg").val("Sent Successfully")
+                $("#sent-msg").removeAttr("disabled");
+              
+                $("#submit-form").trigger('reset');
+                   alert("Message Sent Successfully")
+                  
+                  // window.location.reload()
+                  //window.location.href="https://google.com"
+              },
+              error:function (err){
+                  alert("Something Error")
+  
+              }
+          })
+      })
+  </script>
 
 
     <!-- Google tag (gtag.js) - Google Analytics -->
